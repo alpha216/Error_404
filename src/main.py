@@ -44,16 +44,16 @@ def R1():
 def ax3():
     Left.set_velocity(controller_1.axis3.position(), PERCENT)
     Right.set_velocity(controller_1.axis3.position(), PERCENT)    
-    Left.spin(FORWARD)
-    Right.spin(FORWARD)
+    Left.spin(REVERSE)
+    Right.spin(REVERSE)
 
 def ax1():
-    Left_1.set_velocity(-0.75*controller_1.axis1.position())
-    Left_2.set_velocity(-0.75*controller_1.axis1.position())
-    Right_1.set_velocity(0.75*controller_1.axis1.position())
-    Right_2.set_velocity(0.75*controller_1.axis1.position())
-    Left.spin(REVERSE)
-    Right.spin(REVERSE)\
+    Left_1.set_velocity(-0.75*controller_1.axis1.position(), PERCENT)
+    Left_2.set_velocity(-0.75*controller_1.axis1.position(), PERCENT)
+    Right_1.set_velocity(0.75*controller_1.axis1.position(), PERCENT)
+    Right_2.set_velocity(0.75*controller_1.axis1.position(), PERCENT)
+    Left.spin(FORWARD)
+    Right.spin(FORWARD)
 
 
 # Create Controller callback events
@@ -68,7 +68,7 @@ controller_1.axis1.changed(ax1)
 wait(15, MSEC)
 
 Intake.set_velocity(1000, RPM)
-Shoot_1.set_velocity(10000, RPM)
-Shoot_2.set_velocity(10000, RPM)
+Shoot_1.set_velocity(100, PERCENT)
+Shoot_2.set_velocity(100, PERCENT)
 
 
