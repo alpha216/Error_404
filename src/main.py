@@ -6,72 +6,67 @@ import urandom
 brain=Brain()
 
 # Robot configuration code
-Left_motor_a = Motor(Ports.PORT20, GearSetting.RATIO_18_1, False)
-Left_motor_b = Motor(Ports.PORT19, GearSetting.RATIO_18_1, False)
-Left = MotorGroup(Left_motor_a, Left_motor_b)
-Right_motor_a = Motor(Ports.PORT11, GearSetting.RATIO_18_1, False)
-Right_motor_b = Motor(Ports.PORT12, GearSetting.RATIO_18_1, False)
-Right = MotorGroup(Right_motor_a, Right_motor_b)
-Shoot = Motor(Ports.PORT4, GearSetting.RATIO_36_1, False)
-Intake_motor_a = Motor(Ports.PORT1, GearSetting.RATIO_36_1, False)
-Intake_motor_b = Motor(Ports.PORT10, GearSetting.RATIO_36_1, True)
-Intake = MotorGroup(Intake_motor_a, Intake_motor_b)
-Pole = Motor(Ports.PORT2, GearSetting.RATIO_18_1, False)
 controller_1 = Controller(PRIMARY)
+Intake = Motor(Ports.PORT18, GearSetting.RATIO_36_1, False)
+Shoot_1 = Motor(Ports.PORT20, GearSetting.RATIO_6_1, False)
+Shoot_2 = Motor(Ports.PORT19, GearSetting.RATIO_6_1, False)
+Shoot = MotorGroup(Shoot_1, Shoot_2)
+Left_1 = Motor(Ports.PORT6, GearSetting.RATIO_36_1, False)
+Left_2 = Motor(Ports.PORT16, GearSetting.RATIO_36_1, False)
+Left = MotorGroup(Left_1, Left_2)
+Right_1 = Motor(Ports.PORT5, GearSetting.RATIO_36_1, True)
+Right_2 = Motor(Ports.PORT15, GearSetting.RATIO_36_1, True)
+Right = MotorGroup(Right_1, Right_2)
 
 
 # wait for rotation sensor to fully initialize
 wait(30, MSEC)
 #endregion VEXcode Generated Robot Configuration
-
-# ------------------------------------------
-# 
-# 	Project:      VEXcode Project
-#	Author:       VEX
-#	Created:
-#	Description:  VEXcode V5 Python Project
-# 
-# ------------------------------------------
-
-# Library imports
-from vex import *
-
-# Begin project code
 # Callback function when controller_1 ButtonR1 is pressed
-def controller_R1_pressed():
+def L1():
+    Intake.spin(FORWARD)
+    while controller_1.buttonL1.pressing():
+        wait(5, MSEC)
+    Intake.stop()
+    
+def L2():
+    Shoot.spin(FORWARD)
+    while controller_1.buttonL2.pressing():
+        wait(5, MSEC)
+    Shoot.stop()
+    
+def R1():
     Left.spin(FORWARD)
     Right.spin(FORWARD)
     while controller_1.buttonR1.pressing():
-        # Wait until ButtonR2 is released
         wait(5, MSEC)
     Left.stop()
+    Right.stop()
 
-
-# Callback function when controller_1 ButtonR2 is pressed
-def controller_R2_pressed():
+def R2():
     Left.spin(REVERSE)
     Right.spin(REVERSE)
     while controller_1.buttonR2.pressing():
-        # Wait until ButtonR2 is released
         wait(5, MSEC)
     Left.stop()
+    Right.stop()
 
-def controller_L2_pressed():
-    Intake.spin(REVERSE)
-    Shoot.spin(REVERSE)
-    while controller_1.buttonL2.pressing():
-        # Wait until ButtonR2 is released
-        wait(5, MSEC)
-    Shoot.stop()
-    Intake.stop()
 
 # Create Controller callback events
-controller_1.buttonR1.pressed(controller_R1_pressed)
-controller_1.buttonR2.pressed(controller_R2_pressed)
-controller_1.buttonL2.pressed(controller_L2_pressed)
+controller_1.buttonL1.pressed(L1)
+controller_1.buttonL2.pressed(L2)
+controller_1.buttonR1.pressed(R1)
+controller_1.buttonR2.pressed(R2)
 
 
 # 15 msec delay to ensure events get registered
 wait(15, MSEC)
 
-Left.set_velocity(100, PERCENT)
+Intake.set_velocity(100, RPM)
+Shoot_1.set_velocity(3200, RPM)
+Shoot_2.set_velocity(3200, RPM)
+
+
+
+
+
