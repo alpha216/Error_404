@@ -41,6 +41,12 @@ def R1():
         wait(5, MSEC)
     Roller.stop()
     
+def R2():
+    Roller.spin(REVERSE)
+    while controller_1.buttonR2.pressing():
+        wait(5, MSEC)
+    Roller.stop()
+    
 def ax3():
     Left.set_velocity(controller_1.axis3.position(), PERCENT)
     Right.set_velocity(controller_1.axis3.position(), PERCENT)    
@@ -60,6 +66,7 @@ def ax1():
 controller_1.buttonL1.pressed(L1)
 controller_1.buttonL2.pressed(L2)
 controller_1.buttonR1.pressed(R1)
+controller_1.buttonR2.pressed(R2)
 controller_1.axis3.changed(ax3)
 controller_1.axis1.changed(ax1)
 
